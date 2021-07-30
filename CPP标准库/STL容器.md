@@ -306,6 +306,37 @@ size(): 返回容器内元素个数。
 - **无序（多重）集合**(`unordered_set`/`unordered_multiset`)**C++11**，与 `set`/`multiset` 的区别在与元素无序，只关心”元素是否存在“，使用哈希实现。
 - **无序（多重）映射**(`unordered_map`/`unordered_multimap`)**C++11**，与 `map`/`multimap` 的区别在与键 (key) 无序，只关心 "键与值的对应关系"，使用哈希实现。
 
+## unordered_set
+
+
+
+## unordered_map
+
+```cpp
+unordered_map<string, int>  dict; // 声明unordered_map对象
+
+// 插入数据的三种方式
+	dict.insert(pair<string,int>("apple",2));
+	dict.insert(unordered_map<string, int>::value_type("orange",3));
+	dict["banana"] = 6;
+
+// 长度
+dict.empty()
+dict.size()
+    
+// 遍历, 也可以用auto
+unordered_map<string, int>::iterator iter;
+for(iter=dict.begin();iter!=dict.end();iter++)
+	cout<<iter->first<<ends<<iter->second<<endl;
+ 
+// 查找
+dict.count(x) // 返回容器内键为 x 的元素数量。复杂度为 （关于容器大小对数复杂度，加上匹配个数）。
+dict.find(x) //  若容器内存在键为 x 的元素，会返回该元素的迭代器；否则返回 end()。
+    
+```
+
+
+
 这几种无序关联式容器则采用哈希方式存储元素，内部元素不以任何特定顺序进行排序，所以访问无序关联式容器中的元素时，访问顺序也没有任何保证。
 
 
