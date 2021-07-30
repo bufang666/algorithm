@@ -1,6 +1,8 @@
 # 数位DP
 
-数位 DP 主要解决的问题: 在一段区间 [L, R] 上：
+## 主要解决的问题: 
+
+​		在一段区间 [L, R] 上：
 
 1. 满足某些条件的数字个数
 2. 将 x∈[L,R] 代到一个函数 f(x) 中，一个数字 x 的 f(x) 值为一次贡献的量，求总的贡献
@@ -9,9 +11,17 @@
 
 
 
+## DP设计
+
 DP状态设计: 
 
-dp[pos, lim] - pos 为当前的数位 N-1 ~ 0 ，lim 表示是否顶到上界，pos 到 -1 的时候可以 return 1，使得个位的枚举有效
+`dp[pos, lim]`       
+
+​	`pos` 为当前的数位 N-1 ~ 0 
+
+​	`lim` 表示 [N-1位, pos+1位] 是否顶到上界
+
+​	pos 到 -1 的时候可以 return 1，使得个位的枚举有效
 
 DP状态转移:
 
@@ -34,7 +44,7 @@ dp[pos][1] = digits[i] * dp[pos - 1][0] + dp[pos - 1][1]
 
 # 满足某些条件的数字个数
 
-Q: 最大为 N 的数字组合
+#### [902. 最大为 N 的数字组合](https://leetcode-cn.com/problems/numbers-at-most-n-given-digit-set/)
 
 给定集合D, 问可用D写出的<=N的数字的数目
 
@@ -56,27 +66,22 @@ int getdp(int pos, int lim, const vector<int>& digits, const set<int>& num_set, 
             break;
         dp[pos][lim] += getdp(pos - 1, lim && i == up, digits, num_set, dp); // 本位被限制且选顶到上界的数字,下一位才被限制
     }
-    return dp[pos][lim];
+    return dp
+        [pos][lim];
 }
 ```
 
 
 
-Q: 对称数
-
-对称不变, 求[L, R]之间的这样的数的个数
-
-A:
-
-D = {0, 1, 8} 采用上题的思路
-
 
 
 # 求贡献f(x)
 
-Q: 数字1的个数
+#### [233. 数字 1 的个数](https://leetcode-cn.com/problems/number-of-digit-one/)
 
-求所有<n的数中1出现的个数
+给定一个整数 `n`，计算所有小于等于 `n` 的非负整数中数字 `1` 出现的个数。
+
+n <= 2e9
 
 A:
 
@@ -85,6 +90,8 @@ for (long long i = 1; i <= n; i*=10) {
 	ll divider = i*10;
     ans += (n/divider)*i + min(max(n%divider-i+1, 0), i);
     // 第一个表示前面不拉满时贡献, 第二个表示前面拉满时贡献
+    // 第i位的贡献
+    
 }
 ```
 
